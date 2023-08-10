@@ -17,6 +17,7 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +40,14 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'user' => [
+            'driver' => 'sanctum',
+            'provider' => 'users', // Specify your user provider here
+        ],
+        'admin' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins', // Specify your user provider here
         ],
     ],
 
@@ -63,6 +72,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -93,6 +106,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
