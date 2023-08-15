@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdminResource;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -31,8 +32,24 @@ class AdminController extends Controller
     
     }
 
-    public function index(){
-
-        return 'yes';
+    public function index(Request $request){
+        return response()->json([
+            'admin' =>   $request->user('admin')
+        ]);
     }
+    // public function user(Request $request) {
+    //     // dd(auth('user')->user());
+    //     // dd($request->user('user'));
+    //     return new UserResource($request->user('user'));
+    // }
+
+    public function logout(Request $request) {
+        //    auth('user')->user();
+            $request->user('admin')->currentAccessToken()->delete();
+            // $cookie = cookie()->forget('token');
+            return response()->json([
+                'message' => 'Logged out successfully!'
+            ]);
+        }
 }
+

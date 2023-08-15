@@ -18,12 +18,12 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/Admin/login', [AdminController::class, 'login']);
-
 Route::middleware('user')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 });
+Route::post('/Admin/login', [AdminController::class, 'login']);
 Route::middleware('admin')->group(function () {
       Route::get('/Admin/index', [AdminController::class, 'index']);
+      Route::post('/Admin/logout', [AdminController::class, 'logout']);
 });
